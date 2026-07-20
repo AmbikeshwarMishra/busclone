@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RoadLine Bus Booking | Book Bus Tickets Online</title>
+<meta name="description" content="Book bus tickets online with RoadLine — India-inspired bus ticket booking landing page built with Bootstrap 5.">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- Bootstrap 5 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<!-- Custom CSS -->
+<link href="styles.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- ===================== NAVBAR ===================== -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top rb-navbar" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand rb-logo" href="#top">
+      <i class="bi bi-signpost-split-fill"></i> Road<span>Line</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-2">
+        <li class="nav-item"><a class="nav-link active" href="#top">Bus Tickets</a></li>
+        <li class="nav-item"><a class="nav-link" href="#offers">Offers</a></li>
+        <li class="nav-item"><a class="nav-link" href="#routes">Routes</a></li>
+        <li class="nav-item"><a class="nav-link" href="#app">Mobile App</a></li>
+        <li class="nav-item"><a class="nav-link" href="#faq">Help</a></li>
+      </ul>
+      <div class="d-flex gap-2">
+        <a href="#" class="btn btn-outline-light rb-btn-outline">My Bookings</a>
+        <a href="#" class="btn rb-btn-amber">Login / Sign up</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<header class="rb-hero" id="top">
+  <div class="rb-hero-overlay"></div>
+  <div class="container position-relative">
+    <div class="row align-items-center">
+      <div class="col-lg-6 rb-hero-text" data-reveal>
+        <span class="rb-eyebrow"><i class="bi bi-stars"></i> Trusted by 2 crore+ travellers</span>
+        <h1>Your seat on <span>every route</span>, booked in under a minute.</h1>
+        <p class="rb-hero-sub">Compare 3,000+ operators, track your bus live, and cancel anytime — no counters, no queues.</p>
+        <div class="rb-hero-stats">
+          <div><strong>3,200+</strong><span>Operators</span></div>
+          <div><strong>60,000+</strong><span>Daily Routes</span></div>
+          <div><strong>4.6 <i class="bi bi-star-fill"></i></strong><span>Avg. Rating</span></div>
+        </div>
+      </div>
+      <div class="col-lg-6 d-none d-lg-block" data-reveal>
+        <div class="rb-hero-art">
+          <i class="bi bi-bus-front-fill"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search Card -->
+    <div class="rb-search-card" data-reveal>
+      <form id="searchForm" class="row g-3 align-items-end">
+        <div class="col-12 col-md-3 position-relative">
+          <label class="rb-field-label">FROM</label>
+          <div class="rb-input-group">
+            <i class="bi bi-geo-alt-fill rb-input-icon"></i>
+            <input type="text" class="form-control rb-input" id="fromCity" placeholder="Enter city" value="Bengaluru" list="cityList">
+          </div>
+        </div>
+
+        <div class="col-12 col-md-auto d-flex justify-content-center order-md-0">
+          <button type="button" id="swapBtn" class="rb-swap-btn" aria-label="Swap cities" title="Swap cities">
+            <i class="bi bi-arrow-left-right"></i>
+          </button>
+        </div>
+
+        <div class="col-12 col-md-3">
+          <label class="rb-field-label">TO</label>
+          <div class="rb-input-group">
+            <i class="bi bi-geo-alt rb-input-icon"></i>
+            <input type="text" class="form-control rb-input" id="toCity" placeholder="Enter city" value="Chennai" list="cityList">
+          </div>
+        </div>
+
+        <datalist id="cityList">
+          <option value="Bengaluru"><option value="Chennai"><option value="Hyderabad">
+          <option value="Mumbai"><option value="Pune"><option value="Goa">
+          <option value="Delhi"><option value="Coimbatore"><option value="Kochi">
+        </datalist>
+
+        <div class="col-12 col-md-3">
+          <label class="rb-field-label">DATE OF JOURNEY</label>
+          <div class="rb-input-group">
+            <i class="bi bi-calendar-event rb-input-icon"></i>
+            <input type="date" class="form-control rb-input" id="travelDate">
+          </div>
+        </div>
+
+        <div class="col-12 col-md-3">
+          <button type="submit" class="btn rb-search-btn w-100">
+            <i class="bi bi-search"></i> Search Buses
+          </button>
+        </div>
+      </form>
+      <div class="rb-route-line" aria-hidden="true">
+        <span class="rb-dot"></span><span class="rb-dash-track"><i class="bi bi-bus-front-fill rb-mini-bus"></i></span><span class="rb-dot rb-dot-end"></span>
+      </div>
+      <div id="searchToast" class="rb-search-toast">
+        <i class="bi bi-check-circle-fill"></i> Searching buses from <b id="toastFrom"></b> to <b id="toastTo"></b> on <b id="toastDate"></b>…
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== TRENDING OFFERS ===================== -->
+<section class="rb-section" id="offers">
+  <div class="container">
+    <div class="rb-section-head" data-reveal>
+      <span class="rb-kicker">Deals on wheels</span>
+      <h2>Trending offers for you</h2>
+      <p>Grab a coupon before your seat fills up.</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-3" data-reveal>
+        <div class="rb-ticket-card rb-bg-1">
+          <span class="rb-badge">FLAT 20%</span>
+          <h5>First Ride Special</h5>
+          <p>Use code for new users on any AC sleeper</p>
+          <div class="rb-coupon">RIDE20</div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3" data-reveal>
+        <div class="rb-ticket-card rb-bg-2">
+          <span class="rb-badge">₹150 OFF</span>
+          <h5>Weekend Getaway</h5>
+          <p>Valid on Friday–Sunday departures</p>
+          <div class="rb-coupon">WEEKEND150</div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3" data-reveal>
+        <div class="rb-ticket-card rb-bg-3">
+          <span class="rb-badge">10% OFF</span>
+          <h5>Bank Offer</h5>
+          <p>On select cards, up to ₹200 cashback</p>
+          <div class="rb-coupon">BANK10</div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3" data-reveal>
+        <div class="rb-ticket-card rb-bg-4">
+          <span class="rb-badge">₹100 OFF</span>
+          <h5>App Exclusive</h5>
+          <p>Only on the RoadLine mobile app</p>
+          <div class="rb-coupon">APP100</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== POPULAR ROUTES ===================== -->
+<section class="rb-section rb-section-tint" id="routes">
+  <div class="container">
+    <div class="rb-section-head" data-reveal>
+      <span class="rb-kicker">Most travelled</span>
+      <h2>Popular bus routes</h2>
+      <p>Handpicked routes with the best operator availability.</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-sm-6 col-lg-4" data-reveal>
+        <div class="rb-route-card">
+          <div class="rb-route-top"><i class="bi bi-signpost-2-fill"></i></div>
+          <div class="rb-route-body">
+            <h6>Bengaluru <i class="bi bi-arrow-right"></i> Chennai</h6>
+            <span class="rb-route-meta"><i class="bi bi-bus-front"></i> 120+ buses daily</span>
+            <div class="rb-route-price">From ₹399</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-4" data-reveal>
+        <div class="rb-route-card">
+          <div class="rb-route-top"><i class="bi bi-signpost-2-fill"></i></div>
+          <div class="rb-route-body">
+            <h6>Hyderabad <i class="bi bi-arrow-right"></i> Bengaluru</h6>
+            <span class="rb-route-meta"><i class="bi bi-bus-front"></i> 95+ buses daily</span>
+            <div class="rb-route-price">From ₹549</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-4" data-reveal>
+        <div class="rb-route-card">
+          <div class="rb-route-top"><i class="bi bi-signpost-2-fill"></i></div>
+          <div class="rb-route-body">
+            <h6>Mumbai <i class="bi bi-arrow-right"></i> Pune</h6>
+            <span class="rb-route-meta"><i class="bi bi-bus-front"></i> 200+ buses daily</span>
+            <div class="rb-route-price">From ₹249</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-4" data-reveal>
+        <div class="rb-route-card">
+          <div class="rb-route-top"><i class="bi bi-signpost-2-fill"></i></div>
+          <div class="rb-route-body">
+            <h6>Delhi <i class="bi bi-arrow-right"></i> Manali</h6>
+            <span class="rb-route-meta"><i class="bi bi-bus-front"></i> 60+ buses daily</span>
+            <div class="rb-route-price">From ₹899</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-4" data-reveal>
+        <div class="rb-route-card">
+          <div class="rb-route-top"><i class="bi bi-signpost-2-fill"></i></div>
+          <div class="rb-route-body">
+            <h6>Chennai <i class="bi bi-arrow-right"></i> Coimbatore</h6>
+            <span class="rb-route-meta"><i class="bi bi-bus-front"></i> 80+ buses daily</span>
+            <div class="rb-route-price">From ₹449</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-4" data-reveal>
+        <div class="rb-route-card">
+          <div class="rb-route-top"><i class="bi bi-signpost-2-fill"></i></div>
+          <div class="rb-route-body">
+            <h6>Kochi <i class="bi bi-arrow-right"></i> Bengaluru</h6>
+            <span class="rb-route-meta"><i class="bi bi-bus-front"></i> 70+ buses daily</span>
+            <div class="rb-route-price">From ₹599</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SERVICE FEATURES ===================== -->
+<section class="rb-section">
+  <div class="container">
+    <div class="rb-section-head" data-reveal>
+      <span class="rb-kicker">Why RoadLine</span>
+      <h2>Built for a smoother journey</h2>
+    </div>
+    <div class="row g-4 text-center">
+      <div class="col-6 col-lg-3" data-reveal>
+        <div class="rb-feature">
+          <div class="rb-feature-icon"><i class="bi bi-geo-alt"></i></div>
+          <h6>Live Bus Tracking</h6>
+          <p>Know exactly where your bus is, in real time.</p>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3" data-reveal>
+        <div class="rb-feature">
+          <div class="rb-feature-icon"><i class="bi bi-shield-check"></i></div>
+          <h6>Secure Payments</h6>
+          <p>Bank-grade encryption on every transaction.</p>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3" data-reveal>
+        <div class="rb-feature">
+          <div class="rb-feature-icon"><i class="bi bi-arrow-counterclockwise"></i></div>
+          <h6>Easy Cancellation</h6>
+          <p>Cancel or reschedule in just two taps.</p>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3" data-reveal>
+        <div class="rb-feature">
+          <div class="rb-feature-icon"><i class="bi bi-headset"></i></div>
+          <h6>24×7 Support</h6>
+          <p>Real humans, ready to help around the clock.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== APP DOWNLOAD ===================== -->
+<section class="rb-app-section" id="app">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6" data-reveal>
+        <span class="rb-kicker rb-kicker-light">Get the app</span>
+        <h2 class="text-white">Book faster with the RoadLine app</h2>
+        <p class="rb-app-sub">Exclusive app-only fares, instant e-tickets, and live seat tracking — right from your pocket.</p>
+        <ul class="rb-app-list">
+          <li><i class="bi bi-check-circle-fill"></i> Book in under 60 seconds</li>
+          <li><i class="bi bi-check-circle-fill"></i> Get instant refund updates</li>
+          <li><i class="bi bi-check-circle-fill"></i> Save your favourite routes</li>
+        </ul>
+        <div class="d-flex flex-wrap gap-3 mt-4">
+          <a href="#" class="rb-store-btn"><i class="bi bi-google-play"></i><span>Get it on<br><b>Google Play</b></span></a>
+          <a href="#" class="rb-store-btn"><i class="bi bi-apple"></i><span>Download on the<br><b>App Store</b></span></a>
+        </div>
+      </div>
+      <div class="col-lg-6 text-center" data-reveal>
+        <div class="rb-phone-mock">
+          <div class="rb-phone-notch"></div>
+          <div class="rb-phone-screen">
+            <i class="bi bi-bus-front-fill"></i>
+            <p>RoadLine</p>
+            <span>4.6 ★ · 5M+ downloads</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TESTIMONIALS ===================== -->
+<section class="rb-section" id="testimonials">
+  <div class="container">
+    <div class="rb-section-head" data-reveal>
+      <span class="rb-kicker">Traveller stories</span>
+      <h2>What our passengers say</h2>
+    </div>
+    <div id="rbCarousel" class="carousel slide" data-bs-ride="carousel" data-reveal>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="row justify-content-center">
+            <div class="col-lg-8">
+              <div class="rb-testimonial">
+                <div class="rb-stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+                <p>"Booking took barely a minute and the live tracking meant I knew exactly when to head to the boarding point. No more guessing games."</p>
+                <div class="rb-testimonial-user">
+                  <div class="rb-avatar">AK</div>
+                  <div><strong>Ananya K.</strong><span>Bengaluru → Chennai</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="row justify-content-center">
+            <div class="col-lg-8">
+              <div class="rb-testimonial">
+                <div class="rb-stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i></div>
+                <p>"Had to cancel last minute due to a work emergency — refund was processed within a day. That kind of reliability keeps me coming back."</p>
+                <div class="rb-testimonial-user">
+                  <div class="rb-avatar">RS</div>
+                  <div><strong>Rahul S.</strong><span>Mumbai → Pune</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="row justify-content-center">
+            <div class="col-lg-8">
+              <div class="rb-testimonial">
+                <div class="rb-stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+                <p>"Comparing operators side by side saved me both money and time. The app-only coupon made my weekend trip even cheaper."</p>
+                <div class="rb-testimonial-user">
+                  <div class="rb-avatar">MN</div>
+                  <div><strong>Meera N.</strong><span>Delhi → Manali</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#rbCarousel" data-bs-slide="prev">
+        <span class="rb-carousel-arrow"><i class="bi bi-chevron-left"></i></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#rbCarousel" data-bs-slide="next">
+        <span class="rb-carousel-arrow"><i class="bi bi-chevron-right"></i></span>
+      </button>
+      <div class="carousel-indicators rb-carousel-indicators">
+        <button type="button" data-bs-target="#rbCarousel" data-bs-slide-to="0" class="active"></button>
+        <button type="button" data-bs-target="#rbCarousel" data-bs-slide-to="1"></button>
+        <button type="button" data-bs-target="#rbCarousel" data-bs-slide-to="2"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section class="rb-section rb-section-tint" id="faq">
+  <div class="container">
+    <div class="rb-section-head" data-reveal>
+      <span class="rb-kicker">Need help?</span>
+      <h2>Frequently asked questions</h2>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-lg-9" data-reveal>
+        <div class="accordion rb-accordion" id="faqAccordion">
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                How do I cancel or reschedule my bus ticket?
+              </button>
+            </h2>
+            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">Go to "My Bookings", select your trip, and choose Cancel or Reschedule. Refunds are processed as per the operator's cancellation policy and usually reflect within 3–5 business days.</div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                Is it safe to pay online for bus tickets?
+              </button>
+            </h2>
+            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">Yes. All payments are processed through encrypted, PCI-DSS compliant gateways, and we never store your card details on our servers.</div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                Can I track my bus live?
+              </button>
+            </h2>
+            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">Absolutely — most operators support live GPS tracking, visible from your ticket confirmation page or the mobile app, so you always know your bus's ETA.</div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                Do you offer student or senior citizen discounts?
+              </button>
+            </h2>
+            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">Select operators offer concession fares. Look for the "Concession Available" tag
+                </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                What if my bus is delayed or cancelled by the operator?
+              </button>
+            </h2>
+            <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">You'll be notified immediately via SMS and app alert, with the option of a full refund or a free rebooking on the next available bus.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== NEWSLETTER STRIP ===================== -->
+<section class="rb-newsletter">
+  <div class="container">
+    <div class="row align-items-center g-3">
+      <div class="col-lg-6" data-reveal>
+        <h4>Never miss a fare drop</h4>
+        <p>Subscribe for route-specific offers, straight to your inbox.</p>
+      </div>
+      <div class="col-lg-6" data-reveal>
+        <form class="d-flex gap-2" onsubmit="return false;">
+          <input type="email" class="form-control rb-news-input" placeholder="you@example.com" required>
+          <button class="btn rb-btn-amber flex-shrink-0" type="submit">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="rb-footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <a class="rb-logo rb-logo-footer" href="#top"><i class="bi bi-signpost-split-fill"></i> Road<span>Line</span></a>
+        <p class="rb-footer-about">Booking bus tickets across the country, made simple, transparent, and fast — since day one.</p>
+        <div class="d-flex gap-2">
+          <a href="#" class="rb-social"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="rb-social"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" class="rb-social"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="rb-social"><i class="bi bi-youtube"></i></a>
+        </div>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Company</h6>
+        <ul class="rb-footer-links">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Support</h6>
+        <ul class="rb-footer-links">
+          <li><a href="#faq">FAQs</a></li>
+          <li><a href="#">Cancellation Policy</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Operator Login</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Top Routes</h6>
+        <ul class="rb-footer-links">
+          <li><a href="#routes">Bengaluru → Chennai</a></li>
+          <li><a href="#routes">Mumbai → Pune</a></li>
+          <li><a href="#routes">Delhi → Manali</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Legal</h6>
+        <ul class="rb-footer-links">
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Refund Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <hr class="rb-footer-hr">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+      <span>© 2026 RoadLine Bus Booking. All rights reserved.</span>
+      <span>Made with <i class="bi bi-heart-fill text-danger"></i> using Bootstrap 5</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Back to top -->
+<button id="backToTop" class="rb-back-top" aria-label="Back to top"><i class="bi bi-arrow-up"></i></button>
+
+<!-- Bootstrap Bundle JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
